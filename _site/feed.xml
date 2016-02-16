@@ -3,10 +3,10 @@
   <channel>
     <title>Tiger Howling</title>
     <description></description>
-    <link>http://icodor.github.io/crossing-jekyll/</link>
-    <atom:link href="http://icodor.github.io/crossing-jekyll/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 16 Feb 2016 17:05:21 +0800</pubDate>
-    <lastBuildDate>Tue, 16 Feb 2016 17:05:21 +0800</lastBuildDate>
+    <link>http://icodor.github.io/icodor.github.io/</link>
+    <atom:link href="http://icodor.github.io/icodor.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Tue, 16 Feb 2016 17:14:49 +0800</pubDate>
+    <lastBuildDate>Tue, 16 Feb 2016 17:14:49 +0800</lastBuildDate>
     <generator>Jekyll v3.1.1</generator>
     
       <item>
@@ -27,8 +27,8 @@
 
 </description>
         <pubDate>Sat, 06 Feb 2016 00:00:00 +0800</pubDate>
-        <link>http://icodor.github.io/crossing-jekyll/welcome-to-jekyll/</link>
-        <guid isPermaLink="true">http://icodor.github.io/crossing-jekyll/welcome-to-jekyll/</guid>
+        <link>http://icodor.github.io/icodor.github.io/welcome-to-jekyll/</link>
+        <guid isPermaLink="true">http://icodor.github.io/icodor.github.io/welcome-to-jekyll/</guid>
         
         
         <category>jekyll</category>

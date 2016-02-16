@@ -14,7 +14,7 @@ url: "http://icodor.github.io"
 baseurl: "/icodor.github.io"
 
 # The site cover image on the home page
-image: /crossing-jekyll/images/site-image.jpg
+image: /icodor.github.io/images/site-image.jpg
 
 # The shortname for your Disqus site to enable comments
 disqus_shortname:
@@ -26,7 +26,7 @@ google_analytics_tracking_id:
 # Site navigation
 nav:
   - title: "Home"
-    url:   "/crossing-jekyll/"
+    url:   "/icodor.github.io/"
   - title: "Github"
     url:   "https://github.com/icodor/icodor.github.io"
 
@@ -34,7 +34,7 @@ nav:
 # The links in the site footer
 footer_links:
   - title: "RSS"
-    url:   "/crossing-jekyll/feed.xml"
+    url:   "/icodor.github.io/feed.xml"
   - title: "GitHub"
     url:   "https://github.com/icodor/icodor.github.io"
 
@@ -45,7 +45,7 @@ authors:
     name: Tony Yang
     website: https://github.com/icodor
     bio: iOS Developer # Author info at bottom of post only shows if bio exists
-    avatar: /crossing-jekyll/images/avatar.jpg
+    avatar: /icodor.github.io/images/avatar.jpg
   lewiscarroll:
     name: Tony Yang
 
