@@ -27,8 +27,8 @@ google_analytics_tracking_id:
 nav:
   - title: "Home"
     url:   "/icodor.github.io/"
-  - title: "Github"
-    url:   "https://github.com/icodor/icodor.github.io"
+  - title: "About"
+    url:   "/icodor.github.io/about"
 
 
 # The links in the site footer
