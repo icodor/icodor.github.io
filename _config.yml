@@ -11,7 +11,7 @@ description:
 url: "http://icodor.github.io"
 
 # The subpath of your site, e.g. /blog, for generating urls
-baseurl: "/crossing-jekyll"
+baseurl: "/icodor.github.io"
 
 # The site cover image on the home page
 image: /crossing-jekyll/images/site-image.jpg
