@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Welcome to My Blog!"
-author: Tony
+author: Tony Yang
 categories: LIFE
 image: /icodor.github.io/images/wechat.jpg
 ---
