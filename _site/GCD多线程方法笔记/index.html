@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  
+  
+
+  <title>GCD多线程方法笔记 - Tiger Howling</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  
+
+  
+  
+    <meta name="description" property="og:description" content="Serial Diapatch Queue 串行队列dispatch_queue_t serialDiapatchQueue=dispatch_queue_create(&quot;com.test.queue&quot;, DISPATCH_QUEUE_SERIAL);第一个参数为队列名，第二个参数为队列类型，..." />
+  
+
+  <meta property="og:title" content="GCD多线程方法笔记" />
+  <meta property="og:site_name" content="Tiger Howling" />
+  <meta property="og:type" content="article" />
+
+  
+  
+
+  
+  <meta property="og:url" content="http://icodor.github.io/icodor.github.io/GCD%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%96%B9%E6%B3%95%E7%AC%94%E8%AE%B0/" />
+
+  
+    <meta property="article:published_time" content="2016-03-14T00:00:00+08:00" />
+  
+
+  
+
+  
+
+  
+  <meta name="twitter:card" content="summary" />
+
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400,400italic,700&amp;subset=latin,latin-ext" />
+  <link rel="stylesheet" href="/icodor.github.io/style.css">
+
+  <link rel="canonical" href="http://icodor.github.io/icodor.github.io/GCD%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%96%B9%E6%B3%95%E7%AC%94%E8%AE%B0/">
+
+  <link rel="alternate" type="application/rss+xml" title="Tiger Howling" href="http://icodor.github.io/icodor.github.io/feed.xml">
+
+  
+</head>
+
+
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      
+  <nav class="site-nav">
+    <button class="site-nav-toggle">
+      <span class="screen-reader">Menu</span>
+      <svg class="site-nav-hamburger" viewBox="0 0 18 14">
+        <path d="M0 0h18v2H0zM0 6h18v2H0zM0 12h18v2H0z"/>
+      </svg>
+      <svg class="site-nav-close" viewBox="0 0 18 14">
+        <path d="M16 12.586L3.414 0 2 1.414 14.586 14 16 12.586z"/>
+        <path d="M2 12.586L14.586 0 16 1.414 3.414 14 2 12.586z"/>
+      </svg>
+    </button>
+
+    <ul class="site-nav-list clearfix">
+      
+      
+        <li >
+          <a href="/icodor.github.io/">Home</a>
+        </li>
+      
+        <li >
+          <a href="/icodor.github.io/about">About</a>
+        </li>
+      
+    </ul>
+  </nav>
+
+
+
+      
+        <div class="site-title">
+          <a href="/icodor.github.io/">Tiger Howling</a>
+        </div>
+      
+
+      
+    </div>
+  </header>
+
+  <main class="container">
+    
+
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    
+    <h1 class="post-title" itemprop="headline">GCD多线程方法笔记</h1>
+    <ul class="x-separated-list x-separated-list-meta">
+      
+      <li class="post-date">
+        <time datetime="2016-03-14T00:00:00+08:00" itemprop="datePublished">
+          March 14, 2016
+        </time>
+      </li>
+    </ul>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <h3>Serial Diapatch Queue 串行队列</h3>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="n">dispatch_queue_t</span> <span class="n">serialDiapatchQueue</span><span class="o">=</span><span class="n">dispatch_queue_create</span><span class="p">(</span><span class="s">"com.test.queue"</span><span class="p">,</span> <span class="n">DISPATCH_QUEUE_SERIAL</span><span class="p">);</span></code></pre></figure>
+
+<p>第一个参数为队列名，第二个参数为队列类型，当然，第二个参数如果写NULL，创建出来的也是一个串行队列。</p>
+
+<h3>Concurrent Diapatch Queue 并发队列</h3>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="n">dispatch_queue_t</span> <span class="n">concurrentDiapatchQueue</span><span class="o">=</span><span class="n">dispatch_queue_create</span><span class="p">(</span><span class="s">"com.test.queue"</span><span class="p">,</span> <span class="n">DISPATCH_QUEUE_CONCURRENT</span><span class="p">);</span></code></pre></figure>
+
+<h3>Global Queue &amp; Main Queue</h3>
+<ul>
+  <li>Global Queue其实就是系统创建的Concurrent Diapatch Queue</li>
+  <li>Main Queue 其实就是系统创建的位于主线程的Serial Diapatch Queue</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="n">dispatch_async</span><span class="p">(</span><span class="n">dispatch_get_global_queue</span><span class="p">(</span><span class="n">DISPATCH_QUEUE_PRIORITY_DEFAULT</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="o">^</span><span class="p">{</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"异步线程"</span><span class="p">);</span>
+    <span class="n">dispatch_async</span><span class="p">(</span><span class="n">dispatch_get_main_queue</span><span class="p">(),</span> <span class="o">^</span><span class="p">{</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">@"异步主线程"</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">});</span></code></pre></figure>
+
+<ul>
+  <li>dispatch_get_global_queue存在优先级，没错，他一共有4个优先级：</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="cp">#define DISPATCH_QUEUE_PRIORITY_HIGH 2
+#define DISPATCH_QUEUE_PRIORITY_DEFAULT 0
+#define DISPATCH_QUEUE_PRIORITY_LOW (-2)
+#define DISPATCH_QUEUE_PRIORITY_BACKGROUND INT16_MIN</span></code></pre></figure>
+
+<h3>使用dispatch_set_target_queue方法给自己创建的队列设置执行优先级</h3>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="n">dispatch_queue_t</span> <span class="n">serialDiapatchQueue</span><span class="o">=</span><span class="n">dispatch_queue_create</span><span class="p">(</span><span class="s">"com.test.queue"</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+<span class="n">dispatch_queue_t</span> <span class="n">dispatchgetglobalqueue</span><span class="o">=</span><span class="n">dispatch_get_global_queue</span><span class="p">(</span><span class="n">DISPATCH_QUEUE_PRIORITY_LOW</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="n">dispatch_set_target_queue</span><span class="p">(</span><span class="n">serialDiapatchQueue</span><span class="p">,</span> <span class="n">dispatchgetglobalqueue</span><span class="p">);</span>
+<span class="n">dispatch_async</span><span class="p">(</span><span class="n">serialDiapatchQueue</span><span class="p">,</span> <span class="o">^</span><span class="p">{</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"我优先级低，先让让"</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="n">dispatch_async</span><span class="p">(</span><span class="n">dispatch_get_global_queue</span><span class="p">(</span><span class="n">DISPATCH_QUEUE_PRIORITY_DEFAULT</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="o">^</span><span class="p">{</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"我优先级高,我先block"</span><span class="p">);</span>
+<span class="p">});</span></code></pre></figure>
+
+<p>把自己创建的队列塞到了系统提供的global_queue队列中，可以理解为：创建的queue其实是位于global_queue中执行,所以改变global_queue的优先级，也就改变了创建的queue的优先级。用这种方式来管理子队列。</p>
+
+<h3>dispatch_after</h3>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="n">NSLog</span><span class="p">(</span><span class="s">@"----1"</span><span class="p">);</span>
+<span class="kt">double</span> <span class="n">delayInSeconds</span> <span class="o">=</span> <span class="mi">2</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+<span class="n">dispatch_time_t</span> <span class="n">popTime</span> <span class="o">=</span> <span class="n">dispatch_time</span><span class="p">(</span><span class="n">DISPATCH_TIME_NOW</span><span class="p">,</span> <span class="p">(</span><span class="kt">int64_t</span><span class="p">)(</span><span class="n">delayInSeconds</span> <span class="o">*</span> <span class="n">NSEC_PER_SEC</span><span class="p">));</span>
+<span class="n">dispatch_after</span><span class="p">(</span><span class="n">popTime</span><span class="p">,</span> <span class="n">dispatch_get_main_queue</span><span class="p">(),</span> <span class="o">^</span><span class="p">(</span><span class="kt">void</span><span class="p">){</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"----2"</span><span class="p">);</span>
+<span class="p">});</span></code></pre></figure>
+
+<h3>dispatch_group</h3>
+<p>当监听一个并发队列中，所有任务都完成了，就可以用到这个group，因为并发队列你并不知道哪一个是最后执行的，所以以单独一个任务是无法监听到这个点的，如果把这些单任务都放到同一个group，那么，就能通过dispatch_group_notify方法知道什么时候这些任务全部执行完成了。</p>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="n">dispatch_queue_t</span> <span class="n">queue</span><span class="o">=</span><span class="n">dispatch_get_global_queue</span><span class="p">(</span><span class="n">DISPATCH_QUEUE_PRIORITY_DEFAULT</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="n">dispatch_group_t</span> <span class="n">group</span><span class="o">=</span><span class="n">dispatch_group_create</span><span class="p">();</span>
+<span class="n">dispatch_group_async</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">queue</span><span class="p">,</span> <span class="o">^</span><span class="p">{</span><span class="n">NSLog</span><span class="p">(</span><span class="s">@"0"</span><span class="p">);});</span>
+<span class="n">dispatch_group_async</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">queue</span><span class="p">,</span> <span class="o">^</span><span class="p">{</span><span class="n">NSLog</span><span class="p">(</span><span class="s">@"1"</span><span class="p">);});</span>
+<span class="n">dispatch_group_async</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">queue</span><span class="p">,</span> <span class="o">^</span><span class="p">{</span><span class="n">NSLog</span><span class="p">(</span><span class="s">@"2"</span><span class="p">);});</span>
+<span class="n">dispatch_group_notify</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">dispatch_get_main_queue</span><span class="p">(),</span> <span class="o">^</span><span class="p">{</span><span class="n">NSLog</span><span class="p">(</span><span class="s">@"down"</span><span class="p">);});</span></code></pre></figure>
+
+<p>在例子中，把3个log分别放在并发队列中，通过把这个并发队列任务统一加入group中，group每次runloop的时候都会调用一个方法dispatch_group_wait(group, DISPATCH_TIME_NOW)，用来检查group中的任务是否已经完成，如果已经完成了，那么会执行dispatch_group_notify的block，输出’down’看一下运行结果：</p>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="mi">2016</span><span class="o">-</span><span class="mo">03</span><span class="o">-</span><span class="mi">14</span> <span class="mi">14</span><span class="o">:</span><span class="mi">23</span><span class="o">:</span><span class="mi">58</span><span class="p">.</span><span class="mi">648</span> <span class="n">GCD</span><span class="p">[</span><span class="mi">9424</span><span class="o">:</span><span class="mi">156388</span><span class="p">]</span> <span class="mi">2</span>
+<span class="mi">2016</span><span class="o">-</span><span class="mo">03</span><span class="o">-</span><span class="mi">14</span> <span class="mi">14</span><span class="o">:</span><span class="mi">23</span><span class="o">:</span><span class="mi">58</span><span class="p">.</span><span class="mi">648</span> <span class="n">GCD</span><span class="p">[</span><span class="mi">9424</span><span class="o">:</span><span class="mi">156382</span><span class="p">]</span> <span class="mi">0</span>
+<span class="mi">2016</span><span class="o">-</span><span class="mo">03</span><span class="o">-</span><span class="mi">14</span> <span class="mi">14</span><span class="o">:</span><span class="mi">23</span><span class="o">:</span><span class="mi">58</span><span class="p">.</span><span class="mi">648</span> <span class="n">GCD</span><span class="p">[</span><span class="mi">9424</span><span class="o">:</span><span class="mi">156385</span><span class="p">]</span> <span class="mi">1</span>
+<span class="mi">2016</span><span class="o">-</span><span class="mo">03</span><span class="o">-</span><span class="mi">14</span> <span class="mi">14</span><span class="o">:</span><span class="mi">23</span><span class="o">:</span><span class="mi">58</span><span class="p">.</span><span class="mi">650</span> <span class="n">GCD</span><span class="p">[</span><span class="mi">9424</span><span class="o">:</span><span class="mi">156324</span><span class="p">]</span> <span class="n">down</span></code></pre></figure>
+
+<h3>dispatch_barrier_async</h3>
+<p>此方法的作用是在并发队列中，完成在它之前提交到队列中的任务后打断，单独执行其block，并在执行完成之后才能继续执行在他之后提交到队列中的任务：</p>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="n">dispatch_queue_t</span> <span class="n">concurrentDiapatchQueue</span><span class="o">=</span><span class="n">dispatch_queue_create</span><span class="p">(</span><span class="s">"com.test.queue"</span><span class="p">,</span> <span class="n">DISPATCH_QUEUE_CONCURRENT</span><span class="p">);</span>
+<span class="n">dispatch_async</span><span class="p">(</span><span class="n">concurrentDiapatchQueue</span><span class="p">,</span> <span class="o">^</span><span class="p">{</span><span class="n">NSLog</span><span class="p">(</span><span class="s">@"0"</span><span class="p">);});</span>
+<span class="n">dispatch_async</span><span class="p">(</span><span class="n">concurrentDiapatchQueue</span><span class="p">,</span> <span class="o">^</span><span class="p">{</span><span class="n">NSLog</span><span class="p">(</span><span class="s">@"1"</span><span class="p">);});</span>
+<span class="n">dispatch_async</span><span class="p">(</span><span class="n">concurrentDiapatchQueue</span><span class="p">,</span> <span class="o">^</span><span class="p">{</span><span class="n">NSLog</span><span class="p">(</span><span class="s">@"2"</span><span class="p">);});</span>
+<span class="n">dispatch_async</span><span class="p">(</span><span class="n">concurrentDiapatchQueue</span><span class="p">,</span> <span class="o">^</span><span class="p">{</span><span class="n">NSLog</span><span class="p">(</span><span class="s">@"3"</span><span class="p">);});</span>
+<span class="n">dispatch_barrier_async</span><span class="p">(</span><span class="n">concurrentDiapatchQueue</span><span class="p">,</span> <span class="o">^</span><span class="p">{</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="n">NSLog</span><span class="p">(</span><span class="s">@"4"</span><span class="p">);});</span>
+<span class="n">dispatch_async</span><span class="p">(</span><span class="n">concurrentDiapatchQueue</span><span class="p">,</span> <span class="o">^</span><span class="p">{</span><span class="n">NSLog</span><span class="p">(</span><span class="s">@"5"</span><span class="p">);});</span>
+<span class="n">dispatch_async</span><span class="p">(</span><span class="n">concurrentDiapatchQueue</span><span class="p">,</span> <span class="o">^</span><span class="p">{</span><span class="n">NSLog</span><span class="p">(</span><span class="s">@"6"</span><span class="p">);});</span>
+<span class="n">dispatch_async</span><span class="p">(</span><span class="n">concurrentDiapatchQueue</span><span class="p">,</span> <span class="o">^</span><span class="p">{</span><span class="n">NSLog</span><span class="p">(</span><span class="s">@"7"</span><span class="p">);});</span>
+<span class="n">dispatch_async</span><span class="p">(</span><span class="n">concurrentDiapatchQueue</span><span class="p">,</span> <span class="o">^</span><span class="p">{</span><span class="n">NSLog</span><span class="p">(</span><span class="s">@"8"</span><span class="p">);});</span></code></pre></figure>
+
+<p>4之后的任务在线程sleep之后才执行，这其实就起到了一个线程锁的作用，在多个线程同时操作一个对象的时候，读可以放在并发进行，当写的时候，可以用dispatch_barrier_async方法。</p>
+
+<h3>dispatch_apply</h3>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="n">NSArray</span> <span class="o">*</span><span class="n">array</span><span class="o">=</span><span class="p">[[</span><span class="n">NSArray</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">initWithObjects</span><span class="p">:</span><span class="s">@"0"</span><span class="p">,</span><span class="s">@"1"</span><span class="p">,</span><span class="s">@"2"</span><span class="p">,</span><span class="s">@"3"</span><span class="p">,</span><span class="s">@"4"</span><span class="p">,</span><span class="s">@"5"</span><span class="p">,</span><span class="s">@"6"</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
+<span class="n">dispatch_queue_t</span> <span class="n">queue</span><span class="o">=</span><span class="n">dispatch_get_global_queue</span><span class="p">(</span><span class="n">DISPATCH_QUEUE_PRIORITY_DEFAULT</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="n">dispatch_apply</span><span class="p">([</span><span class="n">array</span> <span class="nf">count</span><span class="p">],</span> <span class="n">queue</span><span class="p">,</span> <span class="o">^</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">index</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"%zu=%@"</span><span class="p">,</span><span class="n">index</span><span class="p">,[</span><span class="n">array</span> <span class="nf">objectAtIndex</span><span class="p">:</span><span class="n">index</span><span class="p">]);</span>
+<span class="p">});</span>
+<span class="n">NSLog</span><span class="p">(</span><span class="s">@"阻塞"</span><span class="p">);</span></code></pre></figure>
+
+<h3>dispatch_suspend &amp; dispatch_resume</h3>
+<p>队列挂起和恢复</p>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="n">dispatch_queue_t</span> <span class="n">concurrentDiapatchQueue</span><span class="o">=</span><span class="n">dispatch_queue_create</span><span class="p">(</span><span class="s">"com.test.queue"</span><span class="p">,</span> <span class="n">DISPATCH_QUEUE_CONCURRENT</span><span class="p">);</span>
+<span class="n">dispatch_async</span><span class="p">(</span><span class="n">concurrentDiapatchQueue</span><span class="p">,</span> <span class="o">^</span><span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">100</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">@"%i"</span><span class="p">,</span><span class="n">i</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="o">==</span><span class="mi">50</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">NSLog</span><span class="p">(</span><span class="s">@"-----------------------------------"</span><span class="p">);</span>
+            <span class="n">dispatch_suspend</span><span class="p">(</span><span class="n">concurrentDiapatchQueue</span><span class="p">);</span>
+            <span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+            <span class="n">dispatch_async</span><span class="p">(</span><span class="n">dispatch_get_main_queue</span><span class="p">(),</span> <span class="o">^</span><span class="p">{</span>
+                <span class="n">dispatch_resume</span><span class="p">(</span><span class="n">concurrentDiapatchQueue</span><span class="p">);</span>
+            <span class="p">});</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">});</span></code></pre></figure>
+
+<h3>Semaphore</h3>
+<p>通过设置信号量的大小，来解决并发过多导致资源吃紧的情况，以单核CPU做并发为例，一个CPU永远只能干一件事情，那如何同时处理多个事件呢，聪明的内核工程师让CPU干第一件事情，一定时间后停下来，存取进度，干第二件事情以此类推，所以如果开启非常多的线程，单核CPU会变得非常吃力，即使多核CPU，核心数也是有限的，所以合理分配线程，变得至关重要，那么如何发挥多核CPU的性能呢？如果让一个核心模拟传很多线程，经常干一半放下干另一件事情，那效率也会变低，所以我们要合理安排，将单一任务或者一组相关任务并发至全局队列中运算或者将多个不相关的任务或者关联不紧密的任务并发至用户队列中运算，所以用好信号量，合理分配CPU资源，程序也能得到优化，当日常使用中，信号量也许只起到了一个计数的作用，真的有点大材小用。</p>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="n">dispatch_semaphore_t</span> <span class="n">semaphore</span> <span class="o">=</span> <span class="n">dispatch_semaphore_create</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span><span class="c1">//为了让一次输出10个，初始信号量为10
+</span><span class="n">dispatch_queue_t</span> <span class="n">queue</span> <span class="o">=</span> <span class="n">dispatch_get_global_queue</span><span class="p">(</span><span class="n">DISPATCH_QUEUE_PRIORITY_DEFAULT</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span><span class="mi">100</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">dispatch_semaphore_wait</span><span class="p">(</span><span class="n">semaphore</span><span class="p">,</span> <span class="n">DISPATCH_TIME_FOREVER</span><span class="p">);</span><span class="c1">//每进来1次，信号量-1;进来10次后就一直hold住，直到信号量大于0；
+</span>    <span class="n">dispatch_async</span><span class="p">(</span><span class="n">queue</span><span class="p">,</span> <span class="o">^</span><span class="p">{</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">@"%i"</span><span class="p">,</span><span class="n">i</span><span class="p">);</span>
+        <span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+        <span class="n">dispatch_semaphore_signal</span><span class="p">(</span><span class="n">semaphore</span><span class="p">);</span><span class="c1">//由于这里只是log,所以处理速度非常快，我就模拟2秒后信号量+1;
+</span>    <span class="p">});</span>
+<span class="p">}</span></code></pre></figure>
+
+<h3>dispatch_once</h3>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="k">static</span> <span class="n">SingletonTimer</span> <span class="o">*</span> <span class="n">instance</span><span class="p">;</span>
+<span class="k">static</span> <span class="n">dispatch_once_t</span> <span class="n">onceToken</span><span class="p">;</span>
+<span class="n">dispatch_once</span><span class="p">(</span><span class="o">&amp;</span><span class="n">onceToken</span><span class="p">,</span> <span class="o">^</span><span class="p">{</span>
+    <span class="n">instance</span> <span class="o">=</span> <span class="p">[[</span><span class="n">SingletonTimer</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">init</span><span class="p">];</span>
+<span class="p">});</span>
+
+<span class="k">return</span> <span class="n">instance</span><span class="p">;</span></code></pre></figure>
+
+
+  </div>
+
+  <div class="share">
+    <span class="share-title">Share this on:</span>
+    
+    <ul class="x-separated-list">
+      <li>
+        <a href="https://twitter.com/intent/tweet?text=GCD%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%96%B9%E6%B3%95%E7%AC%94%E8%AE%B0&amp;url=http://icodor.github.io/icodor.github.io/GCD%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%96%B9%E6%B3%95%E7%AC%94%E8%AE%B0/"
+            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">Twitter</a>
+      </li>
+      <li>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=http://icodor.github.io/icodor.github.io/GCD%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%96%B9%E6%B3%95%E7%AC%94%E8%AE%B0/"
+            onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">Facebook</a>
+      </li>
+      <li>
+        <a href="https://plus.google.com/share?url=http://icodor.github.io/icodor.github.io/GCD%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%96%B9%E6%B3%95%E7%AC%94%E8%AE%B0/"
+            onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">Google+</a>
+      </li>
+    </ul>
+  </div>
+
+</article>
+
+
+
+
+
+
+<nav class="read-next">
+  
+  
+    <a class="read-next-older" href="/icodor.github.io/%E5%8A%9F%E8%83%BD%E5%8D%81%E5%88%86%E5%BC%BA%E5%A4%A7%E7%9A%84openURL-%E6%96%B9%E6%B3%95/">
+      <span class="read-next-label">Older Post</span>
+      <span class="read-next-title">功能十分强大的openURL:方法</span>
+    </a>
+  
+</nav>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      
+  <ul class="x-separated-list">
+    
+      <li>
+        <a href="/icodor.github.io/feed.xml">RSS</a>
+      </li>
+    
+      <li>
+        <a href="https://github.com/icodor/icodor.github.io">GitHub</a>
+      </li>
+    
+  </ul>
+
+
+      © 2016 Tiger Howling
+    </div>
+  </footer>
+
+  <script src="//code.jquery.com/jquery-2.2.0.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.1.0/jquery.fitvids.min.js"></script>
+  <script>
+    (function ($) {
+      var $siteNav = $('.site-nav');
+      var $siteNavToggle = $('.site-nav-toggle');
+
+      $siteNavToggle.click(function () {
+        $siteNav.toggleClass('is-toggled');
+      });
+
+      $('.post-content').fitVids();
+    }(jQuery));
+  </script>
+
+</body>
+</html>
