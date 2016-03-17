@@ -6,8 +6,9 @@ categories:   AFNetworking
 ---
 
 * 方式一
+
+* 方法二
 {% highlight objc %}
-//  ViewController.m
 
 #import "ViewController.h"
 #import "AFNetworking.h"
@@ -53,12 +54,6 @@ categories:   AFNetworking
 }
 
 @end
-{% endhighlight %}
-
-
-* 方法二
-{% highlight objc %}
-//  ViewController.m
 
 #import "ViewController.h"
 #import "AFNetworking.h"
