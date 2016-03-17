@@ -5,59 +5,9 @@
     <description></description>
     <link>http://icodor.github.io/icodor.github.io/</link>
     <atom:link href="http://icodor.github.io/icodor.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 17 Mar 2016 18:32:08 +0800</pubDate>
-    <lastBuildDate>Thu, 17 Mar 2016 18:32:08 +0800</lastBuildDate>
+    <pubDate>Thu, 17 Mar 2016 18:33:34 +0800</pubDate>
+    <lastBuildDate>Thu, 17 Mar 2016 18:33:34 +0800</lastBuildDate>
     <generator>Jekyll v3.1.1</generator>
-    
-      <item>
-        <title>Java和OC语法对比.</title>
-        <description>&lt;ul&gt;
-  &lt;li&gt;Java枚举&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;class FreshJuice {
-   enum FreshJuiceSize{ SMALL, MEDUIM, LARGE }
-   FreshJuiceSize size;
-}&lt;/p&gt;
-
-&lt;p&gt;public class FreshJuiceTest {
-   public static void main(String args[]){
-      FreshJuice juice = new FreshJuice();
-      juice.size = FreshJuice. FreshJuiceSize.MEDUIM ;
-   }
-}&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;OC枚举&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-objc&quot; data-lang=&quot;objc&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//推荐的定义枚举类型的方式
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;typedef&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;NS_ENUM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSInteger&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RWTLeftMenuTopItemType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;  
-  &lt;span class=&quot;n&quot;&gt;RWTLeftMenuTopItemMain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  
-  &lt;span class=&quot;n&quot;&gt;RWTLeftMenuTopItemShows&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  
-  &lt;span class=&quot;n&quot;&gt;RWTLeftMenuTopItemSchedule&lt;/span&gt;  
-&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;  
-&lt;span class=&quot;k&quot;&gt;typedef&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;NS_ENUM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSInteger&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RWTGlobalConstants&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;  
-  &lt;span class=&quot;n&quot;&gt;RWTPinSizeMin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  
-  &lt;span class=&quot;n&quot;&gt;RWTPinSizeMax&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  
-  &lt;span class=&quot;n&quot;&gt;RWTPinCountMin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  
-  &lt;span class=&quot;n&quot;&gt;RWTPinCountMax&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  
-&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;  
-&lt;span class=&quot;c1&quot;&gt;//不推荐的方式
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;enum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GlobalConstants&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;  
-  &lt;span class=&quot;n&quot;&gt;kMaxPinSize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  
-  &lt;span class=&quot;n&quot;&gt;kMaxPinCount&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  
-&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;  &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-</description>
-        <pubDate>Tue, 15 Mar 2016 00:00:00 +0800</pubDate>
-        <link>http://icodor.github.io/icodor.github.io/Java%E5%92%8COC%E8%AF%AD%E6%B3%95%E5%AF%B9%E6%AF%94/</link>
-        <guid isPermaLink="true">http://icodor.github.io/icodor.github.io/Java%E5%92%8COC%E8%AF%AD%E6%B3%95%E5%AF%B9%E6%AF%94/</guid>
-        
-        
-        <category>Java</category>
-        
-      </item>
     
       <item>
         <title>AFNetworking 3.0 AFHTTPSessionManager using NSOperation</title>
@@ -160,12 +110,62 @@
 &lt;span class=&quot;k&quot;&gt;@end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 </description>
-        <pubDate>Tue, 15 Mar 2016 00:00:00 +0800</pubDate>
+        <pubDate>Thu, 17 Mar 2016 00:00:00 +0800</pubDate>
         <link>http://icodor.github.io/icodor.github.io/AFNetworking-3.0-AFHTTPSessionManager-using-NSOperation/</link>
         <guid isPermaLink="true">http://icodor.github.io/icodor.github.io/AFNetworking-3.0-AFHTTPSessionManager-using-NSOperation/</guid>
         
         
         <category>AFNetworking</category>
+        
+      </item>
+    
+      <item>
+        <title>Java和OC语法对比.</title>
+        <description>&lt;ul&gt;
+  &lt;li&gt;Java枚举&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;class FreshJuice {
+   enum FreshJuiceSize{ SMALL, MEDUIM, LARGE }
+   FreshJuiceSize size;
+}&lt;/p&gt;
+
+&lt;p&gt;public class FreshJuiceTest {
+   public static void main(String args[]){
+      FreshJuice juice = new FreshJuice();
+      juice.size = FreshJuice. FreshJuiceSize.MEDUIM ;
+   }
+}&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;OC枚举&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-objc&quot; data-lang=&quot;objc&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//推荐的定义枚举类型的方式
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;typedef&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;NS_ENUM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSInteger&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RWTLeftMenuTopItemType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;  
+  &lt;span class=&quot;n&quot;&gt;RWTLeftMenuTopItemMain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  
+  &lt;span class=&quot;n&quot;&gt;RWTLeftMenuTopItemShows&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  
+  &lt;span class=&quot;n&quot;&gt;RWTLeftMenuTopItemSchedule&lt;/span&gt;  
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;  
+&lt;span class=&quot;k&quot;&gt;typedef&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;NS_ENUM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSInteger&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RWTGlobalConstants&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;  
+  &lt;span class=&quot;n&quot;&gt;RWTPinSizeMin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  
+  &lt;span class=&quot;n&quot;&gt;RWTPinSizeMax&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  
+  &lt;span class=&quot;n&quot;&gt;RWTPinCountMin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  
+  &lt;span class=&quot;n&quot;&gt;RWTPinCountMax&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;  
+&lt;span class=&quot;c1&quot;&gt;//不推荐的方式
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;enum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GlobalConstants&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;  
+  &lt;span class=&quot;n&quot;&gt;kMaxPinSize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  
+  &lt;span class=&quot;n&quot;&gt;kMaxPinCount&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;  &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+</description>
+        <pubDate>Tue, 15 Mar 2016 00:00:00 +0800</pubDate>
+        <link>http://icodor.github.io/icodor.github.io/Java%E5%92%8COC%E8%AF%AD%E6%B3%95%E5%AF%B9%E6%AF%94/</link>
+        <guid isPermaLink="true">http://icodor.github.io/icodor.github.io/Java%E5%92%8COC%E8%AF%AD%E6%B3%95%E5%AF%B9%E6%AF%94/</guid>
+        
+        
+        <category>Java</category>
         
       </item>
     
